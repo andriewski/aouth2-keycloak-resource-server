@@ -19,12 +19,16 @@ public class KeyCloakAuthoritiesConverter implements Converter<Jwt, Collection<G
      * Claims has next structure:
      * <pre>
      * "claims": {
+     *    ...
      *    "realm_access": {
      *        "roles": [
      *            "developer",
      *            "other_role"
      *        ]
      *    }
+     *    "scope": "openid address profile email",
+     *    ...
+     * }
      * </pre>
      *
      * @param jwt jwt token that we want to convert to list of granted authorities
