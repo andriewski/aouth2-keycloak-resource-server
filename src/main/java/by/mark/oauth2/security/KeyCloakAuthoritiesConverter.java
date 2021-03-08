@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class KeyCloakAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
     /**
-     * Claims has next structure:
+     * Claims have next structure:
      * <pre>
      * "claims": {
      *    ...
