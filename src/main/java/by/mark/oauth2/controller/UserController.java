@@ -27,13 +27,13 @@ public class UserController {
     @PostAuthorize("returnObject.body.id == #jwt.subject")
     @GetMapping(BY_ID)
     public ResponseEntity<GetUserResponse> getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
-        GetUserResponse userResponse = GetUserResponse.builder()
-                .id(jwt.getSubject())
-                .name("empty name :)")
-                .lastName("empty lastname :)")
-                .build();
-
-        return ResponseEntity.ok(userResponse);
+        return ResponseEntity.ok(
+                GetUserResponse.builder()
+                        .id("c8e71a2c-e3c5-438e-956d-a2b8ff64a79d")
+                        .name("user2")
+                        .lastName("user2")
+                        .build()
+        );
     }
 
     @Secured(DEVELOPER_ROLE)
