@@ -11,7 +11,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import static by.mark.oauth2.controller.UserController.STATUS;
 import static org.springframework.http.HttpMethod.GET;
 
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        prePostEnabled = true
+)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
