@@ -38,7 +38,6 @@ public class KeyCloakAuthoritiesConverter implements Converter<Jwt, Collection<G
     public Collection<GrantedAuthority> convert(Jwt jwt) {
         return Stream.concat(getRolesAsGrantedAuthoritiesStream(jwt), getScopesAsGrantedAuthoritiesStream(jwt))
                 .collect(Collectors.toList());
-
     }
 
     @SuppressWarnings("unchecked")
