@@ -15,8 +15,8 @@ import static org.springframework.http.HttpMethod.GET;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String DEVELOPER_ROLE = "ROLE_developer";
-    private static final String PROFILE_SCOPE = "SCOPE_profile";
+    public static final String DEVELOPER_ROLE = "ROLE_developer";
+    public static final String PROFILE_SCOPE = "SCOPE_profile";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
