@@ -1,7 +1,10 @@
 package by.mark.oauth2.controller;
 
 import by.mark.oauth2.controller.dto.request.ChangeUserStatusRequest;
+import by.mark.oauth2.controller.dto.response.GetUserResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -19,15 +22,29 @@ public class UserController {
     public static final String BY_ID = "/{id}";
     public static final String CHANGE_STATUS = "/{id}/status";
 
-    @GetMapping(STATUS)
-    public String getStatus() {
-        return "Working...";
+    @PreAuthorize("#id == #jwt.subject")
+    //NOTE: @PostAuthorize can used with get user by name -> and compare id with current authenticated user
+    @PostAuthorize("returnObject.body.id == #jwt.subject")
+    @GetMapping(BY_ID)
+    public ResponseEntity<GetUserResponse> getById(@PathVariable String id, @AuthenticationPrincipal Jwt jwt) {
+        GetUserResponse userResponse = GetUserResponse.builder()
+                .id(jwt.getSubject())
+                .name("empty name :)")
+                .lastName("empty lastname :)")
+                .build();
+
+        return ResponseEntity.ok(userResponse);
     }
 
     @Secured(DEVELOPER_ROLE)
     @DeleteMapping(BY_ID)
     public String deleteUser(@PathVariable String id) {
         return "Deleted user with id " + id;
+    }
+
+    @GetMapping(STATUS)
+    public String getStatus() {
+        return "Working...";
     }
 
     //    @PreAuthorize("hasAuthority(T(by.mark.oauth2.security.config.WebSecurityConfig).DEVELOPER_ROLE)") an example
