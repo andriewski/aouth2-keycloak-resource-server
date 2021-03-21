@@ -3,6 +3,8 @@ package by.mark.oauth2.controller;
 import by.mark.oauth2.controller.dto.request.ChangeUserStatusRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import static by.mark.oauth2.security.config.WebSecurityConfig.DEVELOPER_ROLE;
@@ -28,12 +30,16 @@ public class UserController {
         return "Deleted user with id " + id;
     }
 
-    // @PreAuthorize("hasRole('developer')") an example
-    @PreAuthorize("hasAuthority(T(by.mark.oauth2.security.config.WebSecurityConfig).DEVELOPER_ROLE)")
+    //    @PreAuthorize("hasAuthority(T(by.mark.oauth2.security.config.WebSecurityConfig).DEVELOPER_ROLE)") an example
+    @PreAuthorize("hasRole('developer') or #id == #jwt.subject")
     @PatchMapping(CHANGE_STATUS)
-    public String deleteUser(@PathVariable String id,
-                             @RequestBody ChangeUserStatusRequest request) {
+    public String changeStatus(@PathVariable String id,
+                               @RequestBody ChangeUserStatusRequest request,
+                               @AuthenticationPrincipal Jwt jwt) {
 
-        return format("Changing status to %s for user with id %s", request.getStatus(), id);
+        return format(
+                "Changing status to '%s' for user with id=%s and subject=%s",
+                request.getStatus(), id, jwt.getSubject()
+        );
     }
 }
