@@ -1,4 +1,4 @@
-package by.mark.oauth2.controller.dto.response;
+package by.mark.oauth2.resourceserver.controller.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

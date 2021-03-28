@@ -1,4 +1,4 @@
-package by.mark.oauth2.security;
+package by.mark.oauth2.resourceserver.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package by.mark.oauth2;
+package by.mark.oauth2.resourceserver;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

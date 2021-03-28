@@ -1,14 +1,14 @@
-package by.mark.oauth2.security.config;
+package by.mark.oauth2.resourceserver.security.config;
 
-import by.mark.oauth2.controller.UserController;
-import by.mark.oauth2.security.KeyCloakAuthoritiesConverter;
+import by.mark.oauth2.resourceserver.controller.UserController;
+import by.mark.oauth2.resourceserver.security.KeyCloakAuthoritiesConverter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
-import static by.mark.oauth2.controller.UserController.STATUS;
+import static by.mark.oauth2.resourceserver.controller.UserController.STATUS;
 import static org.springframework.http.HttpMethod.GET;
 
 @EnableGlobalMethodSecurity(
