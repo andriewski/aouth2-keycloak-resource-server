@@ -1,3 +1,4 @@
 rootProject.name = 'oauth2-keycloak-example'
 
 include ':resource-server'
+include ':api-gateway'
