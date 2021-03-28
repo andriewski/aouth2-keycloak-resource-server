@@ -1,6 +1,6 @@
-package by.mark.oauth2.photos.security.config;
+package by.mark.oauth2.albums.security.config;
 
-import by.mark.oauth2.photos.security.KeyCloakAuthoritiesConverter;
+import by.mark.oauth2.albums.security.KeyCloakAuthoritiesConverter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

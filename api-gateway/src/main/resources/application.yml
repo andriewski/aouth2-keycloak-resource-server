@@ -5,10 +5,26 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: 'users-status-check'
+        - id: 'resource-server'
           uri: 'http://localhost:8080'
           predicates:
             - 'Path=/api/v1/users/**'
+            - 'Method=GET'
+          filters:
+            - 'RemoveRequestHeader=Cookie'
+
+        - id: 'photos'
+          uri: 'http://localhost:8083'
+          predicates:
+            - 'Path=/api/v1/photos/**'
+            - 'Method=GET'
+          filters:
+            - 'RemoveRequestHeader=Cookie'
+
+        - id: 'albums'
+          uri: 'http://localhost:8084'
+          predicates:
+            - 'Path=/api/v1/albums/**'
             - 'Method=GET'
           filters:
             - 'RemoveRequestHeader=Cookie'

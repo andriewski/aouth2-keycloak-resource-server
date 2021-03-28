@@ -1,4 +1,4 @@
-package by.mark.oauth2.albums;
+package by.mark.oauth2.resourceserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

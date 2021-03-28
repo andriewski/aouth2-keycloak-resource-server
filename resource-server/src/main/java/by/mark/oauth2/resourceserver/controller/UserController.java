@@ -1,7 +1,7 @@
-package by.mark.oauth2.photos.controller;
+package by.mark.oauth2.resourceserver.controller;
 
-import by.mark.oauth2.photos.controller.dto.request.ChangeUserStatusRequest;
-import by.mark.oauth2.photos.controller.dto.response.GetUserResponse;
+import by.mark.oauth2.resourceserver.controller.request.ChangeUserStatusRequest;
+import by.mark.oauth2.resourceserver.controller.response.GetUserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -10,7 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
-import static by.mark.oauth2.photos.security.config.WebSecurityConfig.DEVELOPER_ROLE;
+import static by.mark.oauth2.resourceserver.security.config.WebSecurityConfig.DEVELOPER_ROLE;
 import static java.lang.String.format;
 
 @RestController
