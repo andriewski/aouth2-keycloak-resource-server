@@ -11,7 +11,7 @@ subprojects {
 
   group = 'by.mark'
   version = '0.0.1-SNAPSHOT'
-  sourceCompatibility = '11'
+  sourceCompatibility = '1.8'
 
   configurations {
     compileOnly {
@@ -37,6 +37,11 @@ subprojects {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  }
+
+  bootRun {
+    //than using via 'gradlew -DinstanceId=bla resource-server:bootRun'
+    systemProperties System.properties
   }
 
   test {
