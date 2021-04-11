@@ -1,7 +1,25 @@
 server:
   port: 80
 
+keycloak-uri: 'http://localhost:8081/auth/realms/mrk-apps/protocol/openid-connect'
+
 spring:
   application:
     name: 'client-app'
-
+  security:
+    oauth2:
+      client:
+        registration:
+          my-cool-client-app:
+            client-id: 'client-app-webclient'
+            client-secret: '1750d00a-9c81-4458-a2cf-6f1cc325303e'
+            scope: 'openid, profile, roles'
+            authorization-grand-type: 'authorization_code'
+            redirect-uri: 'http://localhost:80/login/oauth2/code/my-cool-client-app'
+        provider:
+          my-cool-client-app:
+            authorization-uri: '${keycloak-uri}/auth'
+            token-uri: '${keycloak-uri}/token'
+            jwk-set-uri: '${keycloak-uri}/certs'
+            user-info-uri: '${keycloak-uri}/userinfo'
+            user-name-attribute: 'preferred_username'
