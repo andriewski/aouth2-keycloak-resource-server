@@ -16,7 +16,7 @@ spring:
             - 'RemoveRequestHeader=Cookie'
 
         - id: 'photos'
-          uri: 'lb//photos-service'
+          uri: 'lb://photos-service'
           predicates:
             - 'Path=/api/v1/photos/**'
             - 'Method=GET'
@@ -24,7 +24,7 @@ spring:
             - 'RemoveRequestHeader=Cookie'
 
         - id: 'albums'
-          uri: 'lb//albums-service'
+          uri: 'lb://albums-service'
           predicates:
             - 'Path=/api/v1/albums/**'
             - 'Method=GET'
