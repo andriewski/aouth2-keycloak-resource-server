@@ -1,7 +1,9 @@
 package by.mark.oauth2.resourceserver.controller;
 
+import by.mark.oauth2.resourceserver.config.ApplicationInfoConfig;
 import by.mark.oauth2.resourceserver.controller.request.ChangeUserStatusRequest;
 import by.mark.oauth2.resourceserver.controller.response.GetUserResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -15,12 +17,15 @@ import static java.lang.String.format;
 
 @RestController
 @RequestMapping(UserController.PATH)
+@RequiredArgsConstructor
 public class UserController {
 
     public static final String PATH = "/api/v1/users";
     public static final String STATUS = "/status/check";
     public static final String BY_ID = "/{id}";
     public static final String CHANGE_STATUS = "/{id}/status";
+
+    private final ApplicationInfoConfig applicationInfoConfig;
 
     @PreAuthorize("#id == #jwt.subject")
     //NOTE: @PostAuthorize can used with get user by name -> and compare id with current authenticated user
@@ -44,7 +49,7 @@ public class UserController {
 
     @GetMapping(STATUS)
     public String getStatus() {
-        return "Working...";
+        return format("Working on port %s...", applicationInfoConfig.getLocalServerPort());
     }
 
     //    @PreAuthorize("hasAuthority(T(by.mark.oauth2.security.config.WebSecurityConfig).DEVELOPER_ROLE)") an example

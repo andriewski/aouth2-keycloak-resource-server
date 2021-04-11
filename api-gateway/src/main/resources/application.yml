@@ -2,11 +2,13 @@ server:
   port: 8082
 
 spring:
+  application:
+    name: 'api-gateway'
   cloud:
     gateway:
       routes:
         - id: 'resource-server'
-          uri: 'http://localhost:8080'
+          uri: 'lb://resource-service'
           predicates:
             - 'Path=/api/v1/users/**'
             - 'Method=GET'
@@ -14,7 +16,7 @@ spring:
             - 'RemoveRequestHeader=Cookie'
 
         - id: 'photos'
-          uri: 'http://localhost:8083'
+          uri: 'lb//photos-service'
           predicates:
             - 'Path=/api/v1/photos/**'
             - 'Method=GET'
@@ -22,9 +24,17 @@ spring:
             - 'RemoveRequestHeader=Cookie'
 
         - id: 'albums'
-          uri: 'http://localhost:8084'
+          uri: 'lb//albums-service'
           predicates:
             - 'Path=/api/v1/albums/**'
             - 'Method=GET'
           filters:
             - 'RemoveRequestHeader=Cookie'
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${instanceId:${random.value}}
