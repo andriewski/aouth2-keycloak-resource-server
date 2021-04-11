@@ -25,7 +25,7 @@ public class AlbumController {
         return ResponseEntity.ok(
                 AlbumResponse.builder()
                         .id(id)
-                        .name("test-album for user " + jwt.getSubject())
+                        .title("test-album for user " + jwt.getSubject())
                         .build()
         );
     }

@@ -1,4 +1,4 @@
-package by.mark.oauth2.albums.controller.dto.response;
+package by.mark.clientapp.controller.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
