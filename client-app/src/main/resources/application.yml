@@ -14,7 +14,7 @@ spring:
             client-id: 'client-app-webclient'
             client-secret: '1750d00a-9c81-4458-a2cf-6f1cc325303e'
             scope: 'openid, profile, roles'
-            authorization-grand-type: 'authorization_code'
+            authorization-grant-type: 'authorization_code'
             redirect-uri: 'http://localhost:80/login/oauth2/code/my-cool-client-app'
         provider:
           my-cool-client-app:
@@ -23,3 +23,6 @@ spring:
             jwk-set-uri: '${keycloak-uri}/certs'
             user-info-uri: '${keycloak-uri}/userinfo'
             user-name-attribute: 'preferred_username'
+
+config:
+  gateway-uri: 'http://localhost:8082'

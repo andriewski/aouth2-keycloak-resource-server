@@ -1,13 +1,15 @@
 package by.mark.clientapp.controller.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlbumResponse {
 
-    private final String id;
-    private final String title;
-    private final String url;
+    private String id;
+    private String title;
+    private String url;
 }
