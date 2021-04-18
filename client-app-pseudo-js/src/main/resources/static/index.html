@@ -22,6 +22,8 @@
 <hr>
 <p>Access token: <span id="accessToken"></span></p>
 <hr>
+<div id="getInfoFromResourceServer">Info from resource server</div>
+<button onclick="getInfoFromResourceServer()">Get info from resource serve</button>
 
 <script>
     'use strict';
@@ -111,6 +113,21 @@
         return await rawResponse.json();
     }
 
+    const getInfoFromResourceServer = async () => {
+        let accessToken = document.getElementById("accessToken").innerHTML;
+
+        const rawResponse = await fetch('http://localhost:8081/api/v1/users/status/check', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        let text = await rawResponse.text();
+
+        alert(text);
+    }
 </script>
 </body>
 </html>
