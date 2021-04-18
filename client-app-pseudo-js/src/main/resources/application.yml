@@ -1,0 +1,9 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: 'client-app-pseudo-js'
+
+config:
+  gateway-uri: 'http://localhost:8082'
