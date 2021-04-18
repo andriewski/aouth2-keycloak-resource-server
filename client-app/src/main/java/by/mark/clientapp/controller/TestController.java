@@ -16,7 +16,7 @@ public class TestController {
 
     private final OAuth2AuthorizedClientService clientService;
 
-    @GetMapping("/")
+    @GetMapping("/test")
     public String test(@AuthenticationPrincipal OidcUser principal) {
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 

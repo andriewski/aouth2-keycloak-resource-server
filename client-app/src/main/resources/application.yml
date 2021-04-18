@@ -10,13 +10,27 @@ spring:
     oauth2:
       client:
         registration:
+          #key-cloak client config
           my-cool-client-app:
             client-id: 'client-app-webclient'
             client-secret: '1750d00a-9c81-4458-a2cf-6f1cc325303e'
             scope: 'openid, profile, roles'
             authorization-grant-type: 'authorization_code'
             redirect-uri: 'http://localhost:80/login/oauth2/code/my-cool-client-app'
+          # config for facebook - 'facebook' - is preconfigured name by spring
+          facebook:
+            client-id: '311205123729383'
+            client-secret: '8b60759cf07cd12ba86568c61e0413cb'
+          # config for google - 'google' - is preconfigured name by spring
+          # google:
+          #   client-id: ''
+          #   client-secret: ''
+          # config for github - 'github' - is preconfigured name by spring
+          # github:
+          #   client-id: ''
+          #   client-secret: ''
         provider:
+          #key-cloak provider config
           my-cool-client-app:
             authorization-uri: '${keycloak-uri}/auth'
             token-uri: '${keycloak-uri}/token'
