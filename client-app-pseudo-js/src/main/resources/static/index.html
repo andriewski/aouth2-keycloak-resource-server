@@ -19,6 +19,9 @@
 <hr>
 <div id="getAuthCode">Auth code</div>
 <button onclick="getAuthCode()">Generate auth code</button>
+<hr>
+<p>Access token: <span id="accessToken"></span></p>
+<hr>
 
 <script>
     'use strict';
@@ -77,8 +80,37 @@
     }
 
     function postAuthorize(state, authCode) {
-        alert(`State=${state}, authCode=${authCode}`);
+        let originalStateValue = document.getElementById('stateValue').innerHTML;
+
+        if (state === originalStateValue) {
+            let token = requestToken(authCode);
+            console.log(token);
+
+            document.getElementById('accessToken').innerHTML = token['access_token'];
+        } else {
+            alert('Invalid state value recieved');
+        }
     }
+
+    const requestToken = async (authCode) => {
+        const rawResponse = await fetch('http://localhost:8081/auth/realms/mrk-apps/protocol/openid-connect/token', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            body: JSON.stringify({
+                'grand_type': 'authorization_code',
+                'client_id': 'oauth2-keycloak-example-client2',
+                'code': authCode,
+                'code_verifier': document.getElementById("codeVerifier").innerHTML,
+                'redirect_uri': 'http://localhost:8181/authcodeReader.html',
+            })
+        });
+
+        return await rawResponse.json();
+    }
+
 </script>
 </body>
 </html>
