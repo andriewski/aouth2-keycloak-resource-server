@@ -55,11 +55,10 @@
     }
 
     const generateCodeChallenge = async () => {
-        let codeVerifier = document.getElementById('codeVerifier');
+        let codeVerifier = document.getElementById('codeVerifier').innerHTML;
         let textEncoder = new TextEncoder('US-ASCII');
         let encodedValue = textEncoder.encode(codeVerifier);
         let digest = await window.crypto.subtle.digest('SHA-256', encodedValue);
-
         let codeChallengeValue = base64EncodeUnicode(Array.from(new Uint8Array(digest)));
 
         document.getElementById('codeChallengeValue').innerHTML = codeChallengeValue;
@@ -85,10 +84,10 @@
         let originalStateValue = document.getElementById('stateValue').innerHTML;
 
         if (state === originalStateValue) {
-            let token = requestToken(authCode);
-            console.log(token);
-
-            document.getElementById('accessToken').innerHTML = token['access_token'];
+            requestToken(authCode)
+                .then((data) => {
+                    document.getElementById('accessToken').innerHTML = data['access_token'];
+                })
         } else {
             alert('Invalid state value recieved');
         }
@@ -115,7 +114,7 @@
     const getInfoFromResourceServer = async () => {
         let accessToken = document.getElementById("accessToken").innerHTML;
 
-        const rawResponse = await fetch('http://localhost:8081/api/v1/users/status/check', {
+        const rawResponse = await fetch('http://localhost:8082/api/v1/users/status/check', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
