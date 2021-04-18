@@ -1,15 +1,15 @@
 package by.mark.clientapp.config;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@Configuration
+@ConstructorBinding
 @ConfigurationProperties("config")
 @Getter
-@Setter
+@RequiredArgsConstructor
 public class AppConfig {
 
-    private String gatewayUri;
+    private final String gatewayUri;
 }
