@@ -16,6 +16,9 @@
 <hr>
 <div id="codeChallengeValue">Code challenge value</div>
 <button onclick="generateCodeChallenge()">Generate code challenge</button>
+<hr>
+<div id="getAuthCode">Auth code</div>
+<button onclick="getAuthCode()">Generate auth code</button>
 
 <script>
     'use strict';
@@ -55,6 +58,26 @@
         let codeChallengeValue = base64EncodeUnicode(Array.from(new Uint8Array(digest)));
 
         document.getElementById('codeChallengeValue').innerHTML = codeChallengeValue;
+    }
+
+    const getAuthCode = () => {
+        let state = document.getElementById('stateValue').innerHTML;
+        let codeChallenge = document.getElementById('codeChallengeValue').innerHTML;
+
+        let authorizationUrl = 'http://localhost:8081/auth/realms/mrk-apps/protocol/openid-connect/auth'
+            + '?client_id=my-app-pkce-client'
+            + '&response_type=code'
+            + '&scope=openid'
+            + '&redirect_uri=http://localhost:8181/authcodeReader.html'
+            + '&state=' + state
+            + '&code_challenge=' + codeChallenge
+            + '&code_challenge_method=S256';
+
+        window.open(authorizationUrl, 'authorizationRequestWindow', 'width=800,height=600,left=200,top=200')
+    }
+
+    function postAuthorize(state, authCode) {
+        alert(`State=${state}, authCode=${authCode}`);
     }
 </script>
 </body>
