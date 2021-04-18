@@ -32,6 +32,7 @@ spring:
         provider:
           #key-cloak provider config
           my-cool-client-app:
+            issuer-uri: 'http://localhost:8081/auth/realms/mrk-apps' #param is needed for configuration of logout endpoint
             authorization-uri: '${keycloak-uri}/auth'
             token-uri: '${keycloak-uri}/token'
             jwk-set-uri: '${keycloak-uri}/certs'
