@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Js app with PKCE</title>
+</head>
+<body>
+
+<h1>Index page</h1>
+<div id="stateValue">State value</div>
+<button onclick="generateState(30)">Generate state value</button>
+<hr>
+<div id="codeVerifier">CodeVerifier</div>
+<button onclick="generateCodeVerifier()">Generate code verifier</button>
+<hr>
+<div id="codeChallengeValue">Code challenge value</div>
+<button onclick="generateCodeChallenge()">Generate code challenge</button>
+
+<script>
+    'use strict';
+
+    const generateState = (length) => {
+        let stateValue = '';
+        let alphanumericCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let alphanumericCharactersLength = alphanumericCharacters.length;
+
+        for (let i = 0; i < length; i++) {
+            stateValue += alphanumericCharacters.charAt(Math.floor(Math.random() * alphanumericCharactersLength));
+        }
+
+        document.getElementById("stateValue").innerHTML = stateValue;
+    };
+
+    const generateCodeVerifier = () => {
+        let randomByteArray = new Uint8Array(32);
+        window.crypto.getRandomValues(randomByteArray);
+
+        document.getElementById("codeVerifier").innerHTML = base64EncodeUnicode(randomByteArray);
+    };
+
+    const base64EncodeUnicode = (str) => {
+        let stringValue = String.fromCharCode.apply(null, str);
+        let base64Encoded = btoa(stringValue);
+
+        return base64Encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+    }
+
+    const generateCodeChallenge = async () => {
+        let codeVerifier = document.getElementById('codeVerifier');
+        let textEncoder = new TextEncoder('US-ASCII');
+        let encodedValue = textEncoder.encode(codeVerifier);
+        let digest = await window.crypto.subtle.digest('SHA-256', encodedValue);
+
+        let codeChallengeValue = base64EncodeUnicode(Array.from(new Uint8Array(digest)));
+
+        document.getElementById('codeChallengeValue').innerHTML = codeChallengeValue;
+    }
+</script>
+</body>
+</html>
