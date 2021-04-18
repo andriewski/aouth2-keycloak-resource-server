@@ -22,13 +22,13 @@ spring:
             client-id: '311205123729383'
             client-secret: '8b60759cf07cd12ba86568c61e0413cb'
           # config for google - 'google' - is preconfigured name by spring
-          # google:
-          #   client-id: ''
-          #   client-secret: ''
+          google:
+            client-id: '100301153-h4cg2k6682fhdo63b4cv7kvn0o98rkeu.apps.googleusercontent.com'
+            client-secret: '7qTKNNmP9RkIB04hXD4jfEuS'
           # config for github - 'github' - is preconfigured name by spring
-          # github:
-          #   client-id: ''
-          #   client-secret: ''
+          #github:
+          #  client-id: ''
+          #  client-secret: ''
         provider:
           #key-cloak provider config
           my-cool-client-app:
