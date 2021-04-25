@@ -14,5 +14,5 @@ public interface UsersApiService {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}/verify-password")
-    VerifyPasswordResponse verifyUserPassword(@PathParam("username") String username, String password);
+    VerifyPasswordResponse verifyPassword(@PathParam("username") String username, String password);
 }
