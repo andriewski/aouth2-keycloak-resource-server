@@ -1,12 +1,17 @@
 ext {
   keycloakVersion = '12.0.4'
+  lombokVersion = '1.18.20'
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter'
-
   implementation "org.keycloak:keycloak-core:$keycloakVersion"
 
+  annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+  compileOnly "org.projectlombok:lombok:$lombokVersion"
   compileOnly "org.keycloak:keycloak-server-spi:$keycloakVersion"
   compileOnly "org.keycloak:keycloak-services:$keycloakVersion"
+}
+
+jar {
+  archivesBaseName = 'my-remote-user-storage-provider'
 }

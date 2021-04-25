@@ -10,6 +10,7 @@ import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.models.credential.PasswordCredentialModel;
+import org.keycloak.storage.StorageId;
 import org.keycloak.storage.UserStorageProvider;
 import org.keycloak.storage.adapter.AbstractUserAdapter;
 import org.keycloak.storage.user.UserLookupProvider;
@@ -31,14 +32,26 @@ public class RemoteUserStorageProvider implements UserStorageProvider, UserLooku
 
     @Override
     public UserModel getUserById(String id, RealmModel realm) {
-        return null;
+        StorageId storageId = new StorageId(id);
+        String username = storageId.getExternalId();
+
+        return getUserByUsername(username, realm);
     }
 
     @Override
     public UserModel getUserByUsername(String username, RealmModel realm) {
         return ofNullable(usersApiService.getUserDetails(username))
-                .map(user -> toUserModel(user, realm))
+                .map(user -> createUserModel(username, realm))
                 .orElse(null);
+    }
+
+    private UserModel createUserModel(String username, RealmModel realm) {
+        return new AbstractUserAdapter(session, realm, model) {
+            @Override
+            public String getUsername() {
+                return username;
+            }
+        };
     }
 
     @Override
@@ -72,14 +85,5 @@ public class RemoteUserStorageProvider implements UserStorageProvider, UserLooku
         return ofNullable(usersApiService.verifyPassword(user.getUsername(), credential.getChallengeResponse()))
                 .map(VerifyPasswordResponse::isResult)
                 .orElse(false);
-    }
-
-    private UserModel toUserModel(User user, RealmModel realm) {
-        return new AbstractUserAdapter(session, realm, model) {
-            @Override
-            public String getUsername() {
-                return user.getUserName();
-            }
-        };
     }
 }
