@@ -17,6 +17,7 @@ public class RemoteUserStorageProvider implements UserStorageProvider, UserLooku
 
     private final KeycloakSession session;
     private final ComponentModel model;
+    private final UsersApiService usersApiService;
 
     @Override
     public void close() {
